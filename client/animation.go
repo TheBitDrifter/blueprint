@@ -4,6 +4,9 @@ import "github.com/TheBitDrifter/blueprint/vector"
 
 // AnimationData contains configuration for sprite-based animations
 type AnimationData struct {
+	// Name is the animation name
+	Name string
+
 	// PositionOffset represents the sprite's displacement from the entity's position
 	PositionOffset vector.Two
 

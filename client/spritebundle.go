@@ -1,6 +1,8 @@
 package client
 
 import (
+	"fmt"
+
 	"github.com/TheBitDrifter/blueprint/vector"
 	"github.com/TheBitDrifter/warehouse"
 )
@@ -97,4 +99,37 @@ func (sb SpriteBundle) WithCustomRenderer() SpriteBundle {
 // Count returns the number of sprites in the bundle
 func (sb SpriteBundle) Count() int {
 	return sb.index
+}
+
+func (sb SpriteBundle) SetActiveAnimation(anim AnimationData) SpriteBundle {
+	if sb.index == 0 {
+		panic("No sprite to add animations to")
+	}
+	blueprint := &sb.Blueprints[sb.index-1]
+	if !blueprint.Config.hasAnim {
+		panic("sprite has no animations")
+	}
+	match := false
+	for i, bpAnim := range blueprint.Animations {
+		if anim.Name == bpAnim.Name {
+			blueprint.Config.ActiveAnimIndex = i
+			match = true
+		}
+	}
+	if !match {
+		panic(fmt.Errorf("animation not found: %s", anim.Name))
+	}
+	return sb
+}
+
+func (sb SpriteBundle) SetActiveAnimationFromIndex(index int) SpriteBundle {
+	if sb.index == 0 {
+		panic("No sprite to add animations to")
+	}
+	blueprint := &sb.Blueprints[sb.index-1]
+	if !blueprint.Config.hasAnim {
+		panic("sprite has no animations")
+	}
+	blueprint.Config.ActiveAnimIndex = index
+	return sb
 }

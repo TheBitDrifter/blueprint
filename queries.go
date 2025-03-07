@@ -19,7 +19,7 @@ type defaultQueries struct {
 	SoundBundle        warehouse.Query
 }
 
-var Queries *defaultQueries = &defaultQueries{}
+var Queries defaultQueries = defaultQueries{}
 
 var _ = func() error {
 	Queries.ParallaxBackground = warehouse.Factory.NewQuery()

@@ -9,6 +9,8 @@ type Scene interface {
 	Height() int
 	Width() int
 	CurrentTick() int
+
+	Storage() warehouse.Storage
 }
 
 type Plan = func(height, width int, storage warehouse.Storage) error

@@ -1,6 +1,8 @@
 package client
 
 import (
+	"errors"
+
 	"github.com/TheBitDrifter/blueprint/vector"
 	"github.com/TheBitDrifter/warehouse"
 )
@@ -44,7 +46,30 @@ func (s *SpriteBlueprint) RegisterAnimations(anims ...AnimationData) {
 
 // TryAnimation changes the active animation if not already playing
 // Resets the previous animation's state
-func (s *SpriteBlueprint) TryAnimation(index int) {
+func (s *SpriteBlueprint) TryAnimation(anim AnimationData) {
+	current := s.Config.ActiveAnimIndex
+	for i, bpAnim := range s.Animations {
+		if anim.Name == bpAnim.Name && i != current {
+			s.Animations[s.Config.ActiveAnimIndex].StartTick = 0 // Reset first
+			s.Config.ActiveAnimIndex = i
+		}
+	}
+}
+
+// Set changes the active animation
+// Resets the previous animation's state if needed
+func (s *SpriteBlueprint) SetAnimation(anim AnimationData) {
+	current := s.Config.ActiveAnimIndex
+
+	for i, bpAnim := range s.Animations {
+		if anim.Name == bpAnim.Name && i != current {
+			s.Animations[s.Config.ActiveAnimIndex].StartTick = 0 // Reset first
+			s.Config.ActiveAnimIndex = i
+		}
+	}
+}
+
+func (s *SpriteBlueprint) TryAnimationFromIndex(index int) {
 	if index == s.Config.ActiveAnimIndex {
 		return
 	}
@@ -55,4 +80,13 @@ func (s *SpriteBlueprint) TryAnimation(index int) {
 // HasAnimations returns whether this sprite has animations registered
 func (s *SpriteBlueprint) HasAnimations() bool {
 	return s.Config.hasAnim
+}
+
+func (sb SpriteBlueprint) GetAnim(anim AnimationData) (AnimationData, error) {
+	for _, sbAnim := range sb.Animations {
+		if anim.Name == sbAnim.Name {
+			return anim, nil
+		}
+	}
+	return AnimationData{}, errors.New("animation not found")
 }
