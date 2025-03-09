@@ -28,3 +28,7 @@ func NewPosition(x, y float64) Position {
 func NewScale(x, y float64) Scale {
 	return Scale{vector.Two{X: x, Y: y}}
 }
+
+func (r *Rotation) Set(val float64) {
+	*r = Rotation(val)
+}
