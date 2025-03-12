@@ -11,4 +11,6 @@ type ParallaxBackground struct {
 	SpeedX float64
 	// SpeedY vertical parallax movement multiplier
 	SpeedY float64
+
+	DisableLooping bool
 }

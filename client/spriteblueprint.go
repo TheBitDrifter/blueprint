@@ -90,3 +90,11 @@ func (sb SpriteBlueprint) GetAnim(anim AnimationData) (AnimationData, error) {
 	}
 	return AnimationData{}, errors.New("animation not found")
 }
+
+func (sb *SpriteBlueprint) Activate() {
+	sb.Config.Active = true
+}
+
+func (sb *SpriteBlueprint) Deactivate() {
+	sb.Config.Active = false
+}
