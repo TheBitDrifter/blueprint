@@ -1,6 +1,6 @@
 # Blueprint
 
-Blueprint is a foundation package for the Bappa Framework, providing common components, interfaces, and utilities for game development.
+Blueprint is a foundation package for the [Bappa Framework](https://dl43t3h5ccph3.cloudfront.net/), providing common components, interfaces, and utilities for game development.
 
 ## Overview
 
