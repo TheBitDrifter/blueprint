@@ -30,6 +30,8 @@ type SpriteBlueprint struct {
 		ActiveAnimIndex int
 		hasAnim         bool
 	}
+	// A tilset contains the layout to render the blueprint's sprites as a tiles (cached subimages)
+	TileSet []Tile
 }
 
 // RegisterAnimations adds animations to the sprite
