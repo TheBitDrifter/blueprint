@@ -6,6 +6,7 @@ import (
 	"io/fs"
 	"log"
 	"os"
+	"runtime"
 )
 
 // LDtkProject represents the main structure for an LDtk project
@@ -75,8 +76,7 @@ func Parse(ldtkFS fs.FS, relPath string) (*LDtkProject, error) {
 	var data []byte
 	var err error
 	isProd := os.Getenv("BAPPA_ENV") == "production"
-	if isProd {
-		// Production: load from embedded filesystem
+	if isProd || isWASM() {
 		data, err = fs.ReadFile(ldtkFS, "data.ldtk")
 		if err != nil {
 			log.Printf("Error reading LDtk file from embedded assets: %v", err)
@@ -198,4 +198,8 @@ func (p *LDtkProject) HeightFor(levelName string) int {
 		return 0
 	}
 	return level.PxHei
+}
+
+func isWASM() bool {
+	return runtime.GOOS == "js" && runtime.GOARCH == "wasm"
 }
