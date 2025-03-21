@@ -1,6 +1,6 @@
 module github.com/TheBitDrifter/blueprint
 
-go 1.23.3
+go 1.24.1
 
 require github.com/TheBitDrifter/warehouse v0.0.0-20250302193936-f395d653fb95
 
